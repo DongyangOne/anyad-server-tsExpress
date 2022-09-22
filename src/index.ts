@@ -18,4 +18,6 @@ app.use(
   }),
 )
 
-app.listen(port, () => console.log(`SERVER ON! PORT : ${port}`))
+app.listen(port, () => {
+  console.log(`SERVER ON! PORT : ${port}`)
+})
