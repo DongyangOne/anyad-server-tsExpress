@@ -5,4 +5,5 @@ export interface BoardAttributes {
   title: string
   text: string
   price: number
+  imgPath: string
 }
