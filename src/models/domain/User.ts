@@ -1,7 +1,7 @@
-import { DataTypes, Model } from 'sequelize'
-import sequelize from '../index'
-import { UserAttributes } from '../interface/User'
-import { Provider } from '../interface/Provider'
+import { DataTypes, Model } from "sequelize"
+import sequelize from "../index"
+import { UserAttributes } from "../interface/User"
+import { Provider } from "../interface/Provider"
 
 export class User extends Model<UserAttributes> {
   public readonly idx?: number
@@ -47,9 +47,9 @@ User.init(
     },
   },
   {
-    modelName: 'User',
-    tableName: 'tbl_user',
+    modelName: "User",
+    tableName: "tbl_user",
     sequelize,
     freezeTableName: true,
-  },
+  }
 )
