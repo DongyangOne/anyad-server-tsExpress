@@ -1,12 +1,11 @@
-import passport from "passport"
-
 const router = require("express").Router()
-const user = require("./user.service")
+const moduleApi = require("./module.service")
+import passport from "passport"
 
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  user.localSave
+  moduleApi.saveModule
 )
 
 module.exports = router
