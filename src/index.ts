@@ -8,7 +8,7 @@ import swaggerUi from "swagger-ui-express"
 import passport from "passport"
 
 const app = express()
-const port = 8000
+const port = 3000
 const PassportCofig = require("./utils/passport")
 const swaggerSpec = YAML.load(
   path.join(__dirname, "./utils/swagger/openapi.yaml")
