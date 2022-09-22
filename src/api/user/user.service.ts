@@ -4,13 +4,15 @@ import { User } from "../../models/domain/User"
 import jwt from "jsonwebtoken"
 import { Provider } from "../../models/interface/Provider"
 import nodemailer from "nodemailer"
+import * as bcrypt from "bcryptjs"
 
 exports.localSave = async (req: Request, res: Response) => {
   try {
     const { email, password, name } = req.body
+    const hash = await bcrypt.hash(password, 10)
     const user = await User.create({
       email,
-      password,
+      password: hash,
       name,
       provider: Provider.LOCAL,
     })
@@ -21,27 +23,25 @@ exports.localSave = async (req: Request, res: Response) => {
 }
 
 exports.localLogin = async (req: Request, res: Response) => {
-  exports.localLogin = async (req: Request, res: Response) => {
-    passport.authenticate("local", { session: false }, (err, user) => {
-      if (err || !user) {
-        return res.status(400).json({
-          message: "Something is not right",
-          user: user,
-        })
-      }
-      req.login(user, { session: false }, (err) => {
-        if (err) {
-          res.send(err)
-        }
-        const token = jwt.sign({ idx: user.idx }, "123")
-        res.cookie("accessToken", token, {
-          expires: new Date(Date.now() + 86400e3),
-          sameSite: "lax",
-        })
-        return res.json({ user, token })
+  passport.authenticate("local", { session: false }, (err, user) => {
+    if (err || !user) {
+      return res.status(400).json({
+        message: "Something is not right",
+        user: user,
       })
-    })(req, res)
-  }
+    }
+    req.login(user, { session: false }, (err) => {
+      if (err) {
+        res.send(err)
+      }
+      const token = jwt.sign({ idx: user.idx }, "anyadanyad")
+      res.cookie("accessToken", token, {
+        expires: new Date(Date.now() + 86400e3),
+        sameSite: "lax",
+      })
+      return res.json({ user, token })
+    })
+  })(req, res)
 }
 
 exports.sendMail = async (req: Request, res: Response) => {
