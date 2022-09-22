@@ -37,16 +37,17 @@ exports.searchBoard = async (req: Request, res: Response) => {
   }
 }
 
-exports.saveBoard = async (req: Request, res: Response) => {
+exports.saveBoard = async (req: any, res: Response) => {
   try {
     const user: any = req.user
     const { title, text, price } = req.body
     const { idx } = req.params
+    const filename = req.file.filename
     const board = await Board.create({
       title,
       price,
       text,
-      imgPath: "sibal",
+      imgPath: filename,
       moduleIdx: Number(idx),
       userIdx: user.idx,
     })

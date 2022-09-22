@@ -1,48 +1,46 @@
 import { Request, Response } from "express"
+import { Module } from "../../models/domain/Module"
 import { Access } from "../../models/domain/Access"
-
 const { Op } = require("sequelize")
-const models = require("../../models")
 
 exports.getAccessList = async (req: Request, res: Response) => {
-  
+  try {
+    const user: any = req.user
+    const data = await Access.findAll({ where: { userIdx: user.idx } })
+    res.json({ data: data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+exports.getAccess = async (req: Request, res: Response) => {
+  const { idx } = req.params
+  try {
+    const data = await Access.findOne({ where: { idx } })
+    res.json({ data: data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+exports.buyAccess = async (req: Request, res: Response) => {
   try {
     const user: any = req.user
     const { idx } = req.params
-    const data = await Access.findAll({ where: { userIdx : user.idx } })
-    res.json({ result: true, data: data})
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-exports.getAccess = async (req, res) => {
-  const { id } = req.params
-  try {
-    const data = await models.Access.findAll({ where: { id: id } })
-    res.json({ result: true, data: data })
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-exports.buyAccess = async (req, res) => {
-  const { id: mId } = req.params
-  // const { id: uId } = req.body.user
-  // console.log(mId, uId)
-  try {
-    // const module = await models.Module.findOne({ where: { id: mId } })
-    const access = await models.Access.findAll({
+    const module = await Module.findOne({ where: { idx } })
+    const accessList = await Access.findAll({
       where: {
-        module_id: mId,
-        user_id: {
-          [Op.ne]: 2,
+        moduleIdx: idx,
+        userIdx: {
+          [Op.ne]: user.idx,
         },
       },
     })
-    console.log(access)
-    await models.Access.update({ user_id: 1 }, { where: { id: access[0].id } })
-    res.json({ result: true })
+    const access = Access.update(
+      { userIdx: user.idx },
+      { where: { idx: accessList[0].idx } }
+    )
+    res.json({ data: access })
   } catch (err) {
     console.log(err)
   }

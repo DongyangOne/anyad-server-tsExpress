@@ -1,5 +1,5 @@
 export interface VideoAttributes {
-  idx: number
+  idx?: number
   path: string
   accessIdx: number
   userIdx: number

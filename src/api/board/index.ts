@@ -9,7 +9,7 @@ router.get("/:idx", board.getBoard)
 router.get("/keyword", board.searchBoard)
 router.post(
   "/:idx",
-  //   uploadImg.single("image"),
+  uploadImg.single("image"),
   passport.authenticate("jwt", { session: false }),
   board.saveBoard
 )

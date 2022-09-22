@@ -8,7 +8,7 @@ const getNumber = () => {
 
 const storageVideo = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "source/video/")
+      cb(null, "src/source/video/")
     },
     filename: (req, file, cb) => {
       cb(null, `${getNumber()}-${Date.now()}.mp4`)
@@ -17,7 +17,7 @@ const storageVideo = multer.diskStorage({
   uploadVideo = multer({ storage: storageVideo }),
   storageImg = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "source/images/")
+      cb(null, "src/source/images/")
     },
     filename: (req, file, cb) => {
       cb(null, `${getNumber()}-${Date.now()}.jpeg`)

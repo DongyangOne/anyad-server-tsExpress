@@ -35,9 +35,10 @@ exports.localLogin = async (req: Request, res: Response) => {
         res.send(err)
       }
       const token = jwt.sign({ idx: user.idx }, "anyadanyad")
+      console.log(token)
       res.cookie("accessToken", token, {
         expires: new Date(Date.now() + 86400e3),
-        sameSite: "none",
+        sameSite: "lax",
       })
       return res.json({ user, token })
     })

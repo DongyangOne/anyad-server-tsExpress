@@ -7,8 +7,12 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   access.getAccessList
 )
-router.get("/:id", access.getAccess)
-router.patch(":id", access.buyAccess)
+router.get("/:idx", access.getAccess)
+router.patch(
+  "/:idx",
+  passport.authenticate("jwt", { session: false }),
+  access.buyAccess
+)
 
 module.exports = router
 export {}
