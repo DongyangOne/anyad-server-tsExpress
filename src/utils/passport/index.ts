@@ -18,7 +18,6 @@ module.exports = () => {
       async (email: any, password: any, done: any) => {
         try {
           const findUser = await User.findOne({ where: { email: email } })
-
           if (!findUser)
             done(null, false, { message: "가입되지 않은 회원 입니다." })
           else {

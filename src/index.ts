@@ -20,12 +20,10 @@ app.use(
     limit: "1mb",
   })
 )
-app.use(
-  express.urlencoded({
-    limit: "1mb",
-    extended: false,
-  })
-)
+app.use(express.urlencoded({
+  limit: '1mb',
+  extended: false
+}))
 app.use(cookieParser())
 app.use(
   cors({

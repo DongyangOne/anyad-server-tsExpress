@@ -40,9 +40,7 @@ exports.searchBoard = async (req: Request, res: Response) => {
 exports.saveBoard = async (req: Request, res: Response) => {
   try {
     const user: any = req.user
-
     const { title, text, price } = req.body
-
     const { idx } = req.params
     const board = await Board.create({
       title,
