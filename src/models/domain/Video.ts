@@ -1,31 +1,36 @@
 import { Association, DataTypes, Model } from "sequelize"
 import sequelize from ".."
-import { AccessAttributes } from "../interface/Access"
-import { Module } from "./Module"
+import { VideoAttributes } from "../interface/Video"
+import { Access } from "./Access"
 import { User } from "./User"
 
-export class Access extends Model<AccessAttributes> {
+export class Video extends Model<VideoAttributes> {
   public readonly idx!: number
-  public moduleIdx!: number
+  public path!: string
+  public accessIdx!: number
   public userIdx!: number
 
   public readonly createdAt!: Date
   public readonly updatedAt!: Date
 
   public static associations: {
-    userAccess: Association<Access, User>
-    moduleAccess: Association<Access, Module>
+    userVideo: Association<Video, User>
+    accessVideo: Association<Video, Access>
   }
 }
 
-Access.init(
+Video.init(
   {
     idx: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    moduleIdx: {
+    path: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    accessIdx: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -42,24 +47,24 @@ Access.init(
   }
 )
 
-User.hasMany(Access, {
+User.hasMany(Video, {
   sourceKey: "idx",
   foreignKey: "userIdx",
-  as: "userAccess",
+  as: "userVideo",
 })
 
-Access.belongsTo(User, {
+Video.belongsTo(User, {
   foreignKey: "userIdx",
-  as: "userAccess",
+  as: "userVideo",
 })
 
-Module.hasMany(Access, {
+Access.hasMany(Video, {
   sourceKey: "idx",
-  foreignKey: "moduleIdx",
-  as: "moduleAccess",
+  foreignKey: "accessIdx",
+  as: "accessVideo",
 })
 
-Access.belongsTo(Module, {
-  foreignKey: "moduleIdx",
-  as: "moduleAccess",
+Video.belongsTo(Access, {
+  foreignKey: "accessIdx",
+  as: "accessVideo",
 })
