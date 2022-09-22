@@ -1,4 +1,4 @@
-import { Provider } from './Provider'
+import { Provider } from "./Provider"
 
 export interface UserAttributes {
   idx?: number

@@ -40,8 +40,8 @@ Video.init(
     },
   },
   {
-    modelName: "Access",
-    tableName: "tbl_access",
+    modelName: "Video",
+    tableName: "tbl_video",
     sequelize,
     freezeTableName: true,
   }

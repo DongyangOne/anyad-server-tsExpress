@@ -1,5 +1,5 @@
 export interface AccessAttributes {
-  idx: number
+  idx?: number
   moduleIdx: number
   userIdx: number
 }

@@ -1,5 +1,5 @@
 export interface BoardAttributes {
-  idx: number
+  idx?: number
   moduleIdx: number
   userIdx: number
   title: string

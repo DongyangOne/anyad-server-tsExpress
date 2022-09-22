@@ -1,5 +1,5 @@
 export interface ModuleAttributes {
-  idx: number
+  idx?: number
   name: string
   userIdx: number
 }
