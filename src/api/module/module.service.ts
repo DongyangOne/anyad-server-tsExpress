@@ -18,3 +18,23 @@ exports.saveModule = async (req: Request, res: Response) => {
     console.log(err)
   }
 }
+
+exports.getModuleList = async (req: Request, res: Response) => {
+  try {
+    const user: any = req.user
+    const moduleList = await Module.findAll({ where: { userIdx: user.idx } })
+    res.json({ data: moduleList })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+exports.getModule = async (req: Request, res: Response) => {
+  try {
+    const { idx } = req.params
+    const module = await Module.findOne({ where: { idx } })
+    res.json({ data: module })
+  } catch (err) {
+    console.log(err)
+  }
+}
