@@ -29,6 +29,7 @@ app.use(
 )
 app.use(passport.initialize())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+app.use('/api', require('./api'))
 
 app.listen(port, async () => {
   console.log(`SERVER ON SUCCESS! PORT : ${port}`)
